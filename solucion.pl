@@ -25,7 +25,7 @@ amigo(melina, carlos).
 amigo(carlos, susana).
 
 sonAmigos(Uno, Otro) :- amigo(Uno, Otro).
-sonAmigos(Uno, Otro) :- amigo(Tercero, Otro), amigo(Uno, Tercero).
+sonAmigos(Uno, Otro) :- amigo(Tercero, Otro), sonAmigos(Uno,Tercero).
 
 % susana no tiene amigos: por el principio de "universo cerrado" del paradigma lógico, entonces este dato no forma parte de la base de conocimiento.
 
