@@ -57,12 +57,7 @@ recursividad sólo si es necesario.
 
 comidaSaludable(NombreComida) :- cocina(_, postre(NombreComida, _, Calorias), _), Calorias < 100.
 comidaSaludable(NombreComida) :- cocina(_, entrada(NombreComida, _, Calorias), _), Calorias =< 60.
-comidaSaludable(NombreComida) :- cocina(_,principal(NombreComida,Calorias),_),between(70,90,Calorias).
-
-comidaSaludable2(postre(_, _, Calorias)) :- cocina(_, postre(_, _, Calorias), _), Calorias < 100.
-comidaSaludable2(entrada(_, _, Calorias)) :- cocina(_, entrada(_, _, Calorias), _), Calorias =< 60.
-comidaSaludable2(principal(_, _, Calorias)) :- cocina(_, principal(_, _, Calorias), _), between(70, 90, Calorias).
-
+comidaSaludable(NombreComida) :- cocina(_,principal(NombreComida,Calorias),_),between(70,90,Calorias). 
 /*
 2) soloSalado/1 permite conocer si un cocinero no hace ningún postre.
 */
