@@ -84,20 +84,10 @@ tieneUnaGranFama(NombreCocinero) :-
 4) noEsSaludable/1 verificar si un cocinero no es saludable, es decir de todos
 los platos que elabora hay uno sólo que es saludable el resto no lo son.
 */
+noEsComidaSaludable(UnaComida):-not(comidaSaludable(UnaComida)).
 
-cantidadPlatosSaludables(NombreCocinero, Cantidad) :- 
-    cocina(NombreCocinero, _, _), 
-    findall(Plato, (cocina(NombreCocinero, Plato, _), comidaSaludable2(Plato)), PlatosSaludables),
-    length(PlatosSaludables, Cantidad).
-
-noEsSaludable(NombreCocinero) :-
-    cocina(NombreCocinero, _, _), 
-    cantidadPlatosSaludables(NombreCocinero, Cantidad),
-    Cantidad =< 1.
-
-noEsSaludable(Cocinero):-cocina(Cocinero,_,_),cocina(Cocinero,UnaComida,_),comidaSaludable(UnaComida),
-forall((cocina(Cocinero,OtraComida,_),UnaComida \= OtraComida),not(comidaSaludable(OtraComida))).
-
+noEsSaludable(Cocinero):- cocina(Cocinero,UnPlato,_),comidaSaludable(UnPlato),
+    forall((cocina(Cocinero,OtroPlato,_), OtroPlato \= UnPlato),noEsComidaSaludable(OtroPlato)).
 /*
 5) noUsaIngredientesPopulares/1 verificar si un cocinero no usa ingredientes
 populares en ninguno de sus platos.
