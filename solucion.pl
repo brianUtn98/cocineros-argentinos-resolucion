@@ -57,7 +57,7 @@ recursividad sólo si es necesario.
 
 comidaSaludable(NombreComida) :- cocina(_, postre(NombreComida, _, Calorias), _), Calorias < 100.
 comidaSaludable(NombreComida) :- cocina(_, entrada(NombreComida, _, Calorias), _), Calorias =< 60.
-comidaSaludable(NombreComida) :- cocina(_, principal(NombreComida, _, Calorias), _), between(70, 90, Calorias).
+comidaSaludable(NombreComida) :- cocina(_,principal(NombreComida,Calorias),_),between(70,90,Calorias).
 
 comidaSaludable2(postre(_, _, Calorias)) :- cocina(_, postre(_, _, Calorias), _), Calorias < 100.
 comidaSaludable2(entrada(_, _, Calorias)) :- cocina(_, entrada(_, _, Calorias), _), Calorias =< 60.
@@ -99,6 +99,9 @@ noEsSaludable(NombreCocinero) :-
     cocina(NombreCocinero, _, _), 
     cantidadPlatosSaludables(NombreCocinero, Cantidad),
     Cantidad =< 1.
+
+noEsSaludable(Cocinero):-cocina(Cocinero,UnaComida,_),comidaSaludable(UnaComida),
+forall((cocina(Cocinero,OtraComida,_),UnaComida \= OtraComida),not(comidaSaludable(OtraComida))).
 
 /*
 5) noUsaIngredientesPopulares/1 verificar si un cocinero no usa ingredientes
