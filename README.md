@@ -1,5 +1,7 @@
 ## cocineros-argentinos-resolucion
 
+Créditos @martorres-utn
+
 # Enunciado
 
 ## Cocineros Argentinos
