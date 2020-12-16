@@ -101,7 +101,7 @@ popular que más utiliza en sus comidas.
 ingrediente(Ingrediente) :- cocina(_, entrada(_, Ingredientes, _), _), member(Ingrediente, Ingredientes).
 ingrediente(Ingrediente) :- cocina(_, postre(_, Ingrediente, _), _).
 
-ingredientePopularCocinero(NombreCocinero, Ingrediente) :-
+ingredientePopularMasUsado(NombreCocinero, Ingrediente) :-
     cocina(NombreCocinero, Plato, _), 
     ingrediente(Ingrediente),
     popular(Ingrediente),
