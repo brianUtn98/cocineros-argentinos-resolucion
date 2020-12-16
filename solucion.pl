@@ -1,5 +1,3 @@
-%Parcial 2 - Swiprolog
-
 %cocina(nombre, plato, puntos)
 cocina(mariano, principal(ñoquis, 50), 80).
 cocina(julia, principal(pizza, 100), 60).
@@ -9,14 +7,6 @@ cocina(hernan, entrada(ensalada, [tomate, zanahoria, lechuga], 70), 29).
 cocina(susana, entrada(empanada, [carne, cebolla, papa], 50), 50).
 cocina(susana, postre(pastelito, dulceDeMembrillo, 50), 60).
 cocina(melina, postre(torta, zanahoria, 60),50).
-
-/*
-Mariano es amigo de Susana y de Hernán
-Hernán es amigo de Pedro
-Melina es amiga de Carlos
-Carlos es amigo de Susana
-Susana no tiene amigos
-*/
 
 amigo(mariano, susana).
 amigo(mariano, hernan).
@@ -99,14 +89,6 @@ platoUsaIngrediente(entrada(_, Ingredientes, _), Ingrediente) :- cocina(_, entra
 platoConIngredientePopular(postre(_, Ingrediente, _)) :- cocina(_, postre(_, Ingrediente, _), _), popular(Ingrediente).
 platoConIngredientePopular(entrada(_, Ingredientes, _)) :- cocina(_, entrada(_, Ingredientes, _), _), member(Ingrediente, Ingredientes), popular(Ingrediente).
 
-platoConIngredientePopular2(NombrePlato) :- cocina(_, postre(NombrePlato, Ingrediente, _), _), popular(Ingrediente).
-platoConIngredientePopular2(NombrePlato) :- cocina(_, entrada(NombrePlato, Ingredientes, _), _), member(Ingrediente, Ingredientes), popular(Ingrediente).
-
-nombrePlato(principal(NombrePlato, _), NombrePlato) :- cocina(_, principal(NombrePlato, _), _).
-nombrePlato(entrada(NombrePlato, _, _), NombrePlato) :- cocina(_, entrada(NombrePlato, _, _), _).
-nombrePlato(postre(NombrePlato, _, _), NombrePlato) :- cocina(_, postre(NombrePlato, _, _), _).
-
-
 noUsaIngredientesPopulares(NombreCocinero) :-
     cocina(NombreCocinero, _, _), 
     forall(cocina(NombreCocinero, Plato, _), not(platoConIngredientePopular(Plato))).
@@ -118,29 +100,6 @@ popular que más utiliza en sus comidas.
 
 ingrediente(Ingrediente) :- cocina(_, entrada(_, Ingredientes, _), _), member(Ingrediente, Ingredientes).
 ingrediente(Ingrediente) :- cocina(_, postre(_, Ingrediente, _), _).
-
-frecuenciaIngrediente(NombreCocinero, Ingrediente, Frecuencia) :- 
-    cocina(NombreCocinero, Plato, _), 
-    ingrediente(Ingrediente),
-    platoUsaIngrediente(Plato, Ingrediente),
-    findall(OtrosPlatos, (cocina(NombreCocinero, OtrosPlatos, _), platoUsaIngrediente(OtrosPlatos, Ingrediente)), UsosIngrediente),
-    list_to_set(UsosIngrediente, UsosSinRepetir),
-    length(UsosSinRepetir, Frecuencia).
-
-ingredientePopularMasUsado(NombreCocinero, Ingrediente) :-
-    cocina(NombreCocinero, Plato, _), 
-    ingrediente(Ingrediente),
-    popular(Ingrediente),
-    platoUsaIngrediente(Plato, Ingrediente),
-    frecuenciaIngrediente(NombreCocinero, Ingrediente, FrecuenciaMasAlta),
-    forall(cocina(NombreCocinero, OtrosPlatos, _), 
-    (
-        platoUsaIngrediente(OtrosPlatos, OtroIngrediente),
-        ingrediente(OtroIngrediente), 
-        popular(OtroIngrediente), 
-        frecuenciaIngrediente(NombreCocinero, OtroIngrediente, OtraFrecuencia),
-        OtraFrecuencia =< FrecuenciaMasAlta
-    )).
 
 ingredientePopularCocinero(NombreCocinero, Ingrediente) :-
     cocina(NombreCocinero, Plato, _), 
