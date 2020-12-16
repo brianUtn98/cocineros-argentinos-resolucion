@@ -15,7 +15,7 @@ Además se conoce de cada cocinero la comida que sabe realizar y el nivel de pun
 
 ```prolog
 %cocina(nombre, plato, puntos)
-cocina(mariano, principal(ñoquis, 50), 80).
+cocina(mariano, principal(nioquis, 50), 80).
 cocina(julia, principal(pizza, 100), 60).
 cocina(hernan, postre(panqueque, dulceDeLeche, 100), 60).
 cocina(hernan, postre(trufas, dulceDeLeche, 60), 80).
