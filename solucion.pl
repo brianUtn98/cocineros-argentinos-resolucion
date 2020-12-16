@@ -54,10 +54,10 @@ recursividad sólo si es necesario.
 ● entrada no puede superar las 60 calorías.
 ● plato principal tiene que estar entre 70 y 90 calorías.
 */
-
-comidaSaludable(NombreComida) :- cocina(_, postre(NombreComida, _, Calorias), _), Calorias < 100.
-comidaSaludable(NombreComida) :- cocina(_, entrada(NombreComida, _, Calorias), _), Calorias =< 60.
-comidaSaludable(NombreComida) :- cocina(_,principal(NombreComida,Calorias),_),between(70,90,Calorias). 
+comidaSaludable(Comida):- cocina(_,Comida,_),esPlatoSaludable(Comida).
+esPlatoSaludable(postre(_,_,Calorias)):- Calorias < 100.
+esPlatoSaludable(entrada(_,_,Calorias)):- Calorias =<60.
+esPlatoSaludable(principal(_,Calorias)):- between(70,90,Calorias).
 /*
 2) soloSalado/1 permite conocer si un cocinero no hace ningún postre.
 */
@@ -95,7 +95,7 @@ noEsSaludable(NombreCocinero) :-
     cantidadPlatosSaludables(NombreCocinero, Cantidad),
     Cantidad =< 1.
 
-noEsSaludable(Cocinero):-cocina(Cocinero,UnaComida,_),comidaSaludable(UnaComida),
+noEsSaludable(Cocinero):-cocina(Cocinero,_,_),cocina(Cocinero,UnaComida,_),comidaSaludable(UnaComida),
 forall((cocina(Cocinero,OtraComida,_),UnaComida \= OtraComida),not(comidaSaludable(OtraComida))).
 
 /*
